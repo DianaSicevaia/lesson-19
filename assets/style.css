@@ -1,4 +1,4 @@
-* {
+/* * {
     box-sizing: border-box;
 }
 
@@ -38,6 +38,7 @@ body {
 
 /*внешний вид*/
 
+/*
 .slide {
     box-sizing: border-box;
     padding: 40px;
@@ -93,4 +94,4 @@ button {
 
 .indicator.active {
     background-color: red;
-}
+} 

@@ -1,8 +1,185 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable func-style */
+/* eslint-disable require-jsdoc */
+
+let container = null;
+let prevIndicator = null;
+
+function createCarousel(slidesCount = 5) {
+    let container = document.querySelector('#carousel');
+    createStyle();
+
+    let createSlides = document.createElement('ul');
+    createSlides.setAttribute('class', 'slides');
+
+    createSlides.addItem = function (slide) {
+
+        let slideItem = document.createElement('li');
+        slideItem.setAttribute('class', 'slides__item');
+        if (slide === 0) slideItem.classList.add('active');
+
+        let slideLink = document.createElement('a');
+        slideLink.setAttribute('href', '#');
+        
+        slideItem.appendChild(slideLink);
+        this.appendChild(slideItem);
+    }
+
+    
+        let createIndicators = document.createElement('div');
+        createIndicators.setAttribute('class', 'indicators');
+        createIndicators.addEventListener('click', handler);
+        createIndicators.addItem = function (n) {
+    
+            let indicators__item = document.createElement('span');
+            indicators__item.setAttribute('class', 'indicators__item');
+            if(n === 0) indicators__item.classList.add('active');
+            indicators__item.setAttribute('data-slide-to', n);
+            this.appendChild(indicators__item);
+        }
+    
+
+    let createControls = document.createElement('div');
+    createControls.setAttribute('class', 'controls');
+    createControls.addItem = function (button) {
+            if(button > 2) return;
+            let controlItem = document.createElement('div');
+            controlItem.setAttribute('class', 'controls__item');
+    
+            let controlIcon = document.createElement('i');
+            controlIcon.setAttribute('class', 'fas');
+
+            controlItem.appendChild(controlIcon);
+            switch (button) { 
+                case 0:
+                    controlItem.classList.add('controls__prev');
+                    controlIcon.classList.add('fa-chevron-left');
+                    break;
+                case 1:
+                    controlItem.classList.add('controls__next');
+                    controlIcon.classList.add('fa-chevron-right');
+                    break;
+                case 2:
+                    controlItem.classList.add('controls__pause');
+                    controlIcon.classList.add('fa-play');
+                    break;
+            }
+            controlItem.appendChild(controlIcon);
+            this.appendChild(controlItem);
+            console.log(controlItem);
+      }
+   
+
+    
+    for (let i=0; i < slidesCount; i++) {
+        createSlides.addItem(i);
+        createIndicators.addItem(i);
+        createControls.addItem(i);
+    }
+
+    container.appendChild(createSlides);
+    container.appendChild(createIndicators);
+    container.appendChild(createControls);
+
+    
+}
+
+function handler(e) {
+    let target = e.target;
+
+  if (target.classList.contains('indicators__item')) {
+    target.style.backgroundColor = 'red';
+
+    if (prevIndicator !== null) prevIndicator.removeAttribute('style');
+
+    prevIndicator = target;
+  }
+}
+
+function createStyle() {
+    let css = `
+    .controls, .slides {
+        position: relative;
+    }
+    .slides {
+        position: relative;
+    
+        height: 150px;
+        margin: 0;
+        padding: 0;
+    
+        list-style-type: none;
+
+        box-sizing: border-box;
+        padding: 40px;
+        color: #ffffff;
+        background: #333333;
+        font-size: 40px;
+    }
+
+    .slides__item {
+        position: absolute;
+        z-index: -100;
+        top: 0;
+        left: 0;
+    
+        width: 100%;
+        height: 100%;
+    
+        transition: opacity 1s;
+    
+        opacity: 0;
+    }
+    .indicators {
+        display: flex;
+    }
+    .indicators__item {
+        width: 24px;
+        height: 24px;
+        border-radius: 12px;
+        border: 1px solid;
+        cursor: pointer;
+        background-color: gray;
+    }
+    
+    .control {
+        width: 100px;
+    }
+    .controls__item {
+        height: 24px;
+        display: inline-block;
+        margin-bottom: 10px;
+        cursor: pointer;`;
+    let head = document.querySelector('head');
+    let style = document.createElement('style');
+    style.setAttribute('type', 'text/css');
+    style.appendChild(document.createTextNode(css));
+    head.appendChild(style);
+}
+  
+   createCarousel(5);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 //let carousel = new Carousel();
 
-let carousel = new SwipeCarousel();
+// let carousel = new SwipeCarousel();
 
-carousel.init();
+// carousel.init();
 
 // (function anyname() {
 //     let container = document.querySelector('#carousel');
@@ -109,4 +286,3 @@ carousel.init();
 //     timerID = setInterval (gotoNext, interval);
         
 // }()); 
-

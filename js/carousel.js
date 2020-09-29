@@ -20,11 +20,10 @@ class Carousel {
         let settings = initConfig(s);
 
 
-        this.container = document.querySelector('#carousel');
-        this.slides = this.container.querySelectorAll('.slide');
+        this.container = document.querySelector(settings.containerID);
+        this.slides = this.container.querySelectorAll(settings.slideID);
 
-        this.timerID = null;
-        this.interval = 2000;
+        this.interval = settings.interval;
     }
 
     _initProps() {
